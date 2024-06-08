@@ -4,7 +4,6 @@
 ##############################
 
 library(tidyverse)
-library(lubridate)
 library(plotly)
 library(bayesmove)
 library(rnaturalearth)
@@ -13,7 +12,8 @@ library(sf)
 
 #### Load data ####
 
-dat <- read.csv("Raw_data/FDN Cmydas tracks_subset.csv")
+pth <- "https://raw.githubusercontent.com/joshcullen/Behavior_and_SpaceUse_Workshop/d6608d61ad376ff6f1e4f14124aed8bc30f5168c/Raw_data/FDN%20Cmydas%20tracks.csv"
+dat <- read_csv(pth)
 
 # Explore data summaries
 glimpse(dat)
@@ -55,9 +55,10 @@ table(dat2$Quality, useNA = "ifany")  #Quality looks good now
 
 dat2$Date[1:10]  #see what current format looks like
 
-dat2 <- dat2 %>%
-  mutate(Date = as_datetime(Date, format = '%Y-%m-%d %H:%M:%S'))
-dat2$Date[1:10]  #inspect modified format
+# date-time format correctly read in using read_csv
+# dat2 <- dat2 %>%
+#   mutate(Date = as_datetime(Date, format = '%Y-%m-%d %H:%M:%S'))
+# dat2$Date[1:10]  #inspect modified format
 
 
 
@@ -139,4 +140,4 @@ ggplot() +
 
 #### Export cleaned data ####
 
-write.csv(dat3, "Processed_data/Cleaned_FDN Cmydas tracks.csv", row.names = FALSE)
+write.csv(dat3, "data-processed/Cleaned_FDN Cmydas tracks.csv", row.names = FALSE)
